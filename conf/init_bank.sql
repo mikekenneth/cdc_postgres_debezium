@@ -1,5 +1,5 @@
-CREATE SCHEMA bank;
 
+CREATE schema bank;
 CREATE TABLE bank.holding (
     holding_id int,
     user_id int,
@@ -10,5 +10,3 @@ CREATE TABLE bank.holding (
     primary key(holding_id)
 );
 ALTER TABLE bank.holding replica identity FULL;
-
--- insert into bank.holding values (1000, 1, 'VFIAX', 10, now(), now());

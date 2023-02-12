@@ -1,0 +1,55 @@
+[
+  {
+    "_id": "18ed3434-2498-4bab-b772-e6d0e84e67d2",
+    "colId": "625fc339-29da-4565-8dbe-b96e132c2e36",
+    "containerId": "",
+    "name": "GET connectors",
+    "url": "localhost:8083/connectors/",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-02-12T18:46:17.235Z",
+    "modified": "2023-02-12T18:46:17.235Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2b9fe964-8a5e-46d9-a5e0-fa3eea744e77",
+    "colId": "625fc339-29da-4565-8dbe-b96e132c2e36",
+    "containerId": "",
+    "name": "Post - Add Connector",
+    "url": "localhost:8083/connectors/",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-02-12T18:48:50.396Z",
+    "modified": "2023-02-12T19:09:11.167Z",
+    "headers": [
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"cdc-connector\",\n  \"config\": {\n    \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\n    \"database.hostname\": \"postgres\",\n    \"database.dbname\": \"cdc_user\",\n    \"database.port\": \"5432\",\n    \"database.user\": \"cdc_user\",\n    \"database.password\": \"cdc_password\",\n    \"table.whitelist\": \"bank.holding\",\n    \"topic.prefix\": \"bankholding\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "ac18d6c5-735c-481e-b9f0-5b7c3cdd168f",
+    "colId": "625fc339-29da-4565-8dbe-b96e132c2e36",
+    "containerId": "",
+    "name": "Delete Connector",
+    "url": "localhost:8083/connectors/cdc-connector",
+    "method": "DELETE",
+    "sortNum": 40000,
+    "created": "2023-02-12T18:55:55.413Z",
+    "modified": "2023-02-12T18:56:09.255Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
