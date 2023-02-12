@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 services:
   postgres:
     image: 'debezium/postgres:14'
@@ -16,6 +16,8 @@ services:
         - '2181:2181'
         - '2888:2888'
         - '3888:3888'
+      depends_on:
+        - postgres
 
     kafka:
       image: 'debezium/kafka:2.1'
@@ -23,8 +25,10 @@ services:
         - '9092:9092'
       links:
         - 'zookeeper:zookeeper'
+      depends_on:
+        - zookeeper
 
-    cdc_connect:
+    connect:
       image: 'debezium/connect:2.1'
       ports:
         - '8083:8083'
@@ -36,3 +40,7 @@ services:
         - GROUP_ID=cdc_group
         - CONFIG_STORAGE_TOPIC=cdc_storage_topic
         - OFFSET_STORAGE_TOPIC=cdc_offset_topic
+      depends_on:
+        - postgres
+        - zookeeper
+        - kafka
