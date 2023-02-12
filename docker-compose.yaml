@@ -1,0 +1,38 @@
+version: '3.4'
+services:
+  postgres:
+    image: 'debezium/postgres:14'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=cdc_user
+      - POSTGRES_PASSWORD=cdc_password
+    volumes:
+      - ./conf/init_bank.sql:/docker-entrypoint-initdb.d/init_bank.sql
+
+    zookeeper:
+      image: 'debezium/zookeeper:2.1'
+      ports:
+        - '2181:2181'
+        - '2888:2888'
+        - '3888:3888'
+
+    kafka:
+      image: 'debezium/kafka:2.1'
+      ports:
+        - '9092:9092'
+      links:
+        - 'zookeeper:zookeeper'
+
+    cdc_connect:
+      image: 'debezium/connect:2.1'
+      ports:
+        - '8083:8083'
+      links:
+        - kafka:kafka
+        - postgres:postgres
+      environment:
+        - BOOTSTRAP_SERVERS=kafka:9092
+        - GROUP_ID=cdc_group
+        - CONFIG_STORAGE_TOPIC=cdc_storage_topic
+        - OFFSET_STORAGE_TOPIC=cdc_offset_topic
